@@ -10,10 +10,9 @@ def home():
 def signup():
     return render_template('signup.html')
 
+@techcafeApp.route('/signin')
+def signin():
+    return render_template('signin.html')
+
 if __name__ == '__main__':
-    techcafeApp.run(port=3300,debug=True)
-
-
-
-    
-    
+    techcafeApp.run(port=3300,debug=True)    
