@@ -5,6 +5,10 @@ class Config:
 class DevelopmentConfig:
     MYSQL_HOST      = 'localhost'
     MYSQL_USER      = 'root'
-    MYSQL_PASSWORD  = ''
+    MYSQL_PASSWORD  = 'mysql'
     MYSQL_DB        = 'techcafe'
-        
+
+
+config = {
+    'development': DevelopmentConfig 
+}       
