@@ -2,6 +2,11 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash
 import datetime
+from config import config
+from.models.ModelUser import ModelUser
+from.models.entities.User import User
+
+
 
 techcafeApp = Flask(__name__)
 db          = MySQL(techcafeApp)
@@ -17,7 +22,7 @@ def signup():
         correo = request.form['correo']
         clave = request.form['clave']
         claveCifrada = generate_password_hash(clave)
-        fechareg = datetime.datetime()
+        fechareg = datetime.datetime.now()
         regUsuario = db.connection.cursor()
         regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg)VALUES(%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg))
         db.connection.commit()
@@ -30,4 +35,5 @@ def signin():
     return render_template('signin.html')
 
 if __name__ == '__main__':
-    techcafeApp.run(port=3300,debug=True)    
+    techcafeApp.config.from_object(config['development'])
+    techcafeApp.run(port=3300)    
