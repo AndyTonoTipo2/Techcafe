@@ -1,5 +1,4 @@
 from models.entities.User import User
-
 class ModelUser:
     @classmethod
     def signin(self, db, usuario):

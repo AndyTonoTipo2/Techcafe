@@ -12,7 +12,7 @@ db          = MySQL(techcafeApp)
 adminSesion = LoginManager(techcafeApp)
 
 @adminSesion.user_loader
-def cargarUsuario():
+def cargarUsuario(id):
     return ModelUser.get_by_id(db, id) 
 
 @techcafeApp.route('/')
@@ -57,6 +57,14 @@ def signin():
 def signout():
     logout_user() 
     return render_template('home.html')
+
+@techcafeApp.route('/sUsuario',methods=['GET','POST'])
+def sUsuario():
+    selUsuario = db.connection.cursor()
+    selUsuario.execute("SELECT * FROM usuario")
+    u = selUsuario.fetchall()
+    selUsuario.close()
+    return render_template('usuarios.html',usuarios = u)
 
 
 if __name__ == '__main__':
