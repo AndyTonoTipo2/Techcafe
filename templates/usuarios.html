@@ -93,6 +93,16 @@
 </nav>
 
 <div class="container">
+  {% with mensajes = get_flashed_messages() %}
+  {% if mensajes %}
+  {% for m in mensajes %}
+  <div class="alert alert-success alert-dismissible fade show" role="success">
+    {{m}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
 
         <table class="table">
         <thead>
@@ -102,10 +112,59 @@
         <th scope="col">Correo</th>
         <th scope="col">Fecha de Registro</th>
         <th scope="col">Perfil</th>
-        <th scope="col" colspan="2">&nbsp;</th>
-
+        <th scope="col" colspan="2">
+          <!--Button Insert-->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
+            <i class="fa-solid fa-user-plus" style="color: #fff;"></i>
+          </button>
+        </th>
     </tr>
-    </thead>
+    
+    
+    <!-- Modal Insert -->
+    <div class="modal fade" id="insert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <form action="/iUsuario"method="post">
+    <div class="modal-body">
+      <div class="container">
+      <div class="col-md-6">
+      <label for="inputName" class="form-label">Name</label>
+        <input type="text" name="nombre" class="form-control" id="inputName">
+        </div>
+        
+        <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Email</label>
+            <input type="email" name="correo" class="form-control" id="inputEmail4">
+            </div>
+            <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Password</label>
+            <input type="password" name="clave" class="form-control" id="inputPassword4">
+                </div>
+                <div class="col-md-6">
+                  <label for="inputPassword4" class="form-label">Profile</label>
+                  <select name="perfil" class="form-select" aria-label="Default select example">
+                    <option selected>Select a Profile</option>
+                    <option value="A">Admin</option>
+                    <option value="U">User</option>
+                  </select>
+                </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Crear Usuario</button>
+      </div>
+      </form>
+        </div>
+        </div>
+          </div>
+            </thead>
+    
     <tbody>
         {% for u in usuarios %}
       <tr>

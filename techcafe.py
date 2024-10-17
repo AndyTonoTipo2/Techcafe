@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, login_user, logout_user
 from werkzeug.security import generate_password_hash
@@ -6,6 +6,7 @@ import datetime
 from config import config
 from models.ModelUser import ModelUser
 from models.entities.User import User
+
 
 techcafeApp = Flask(__name__)
 db          = MySQL(techcafeApp)
@@ -47,9 +48,11 @@ def signin():
                 else:
                     return render_template('user.html')
             else:
-                return 'Contraseña Incorrecta'
+                flash('contraseña incorrecta')
+                return redirect(request.url)
         else:
-            return 'Correo no encontrado'        
+            flash('Usuario Inexistente')
+            return redirect(request.url)        
     else:
         return render_template('signin.html')
 
@@ -66,6 +69,22 @@ def sUsuario():
     selUsuario.close()
     return render_template('usuarios.html',usuarios = u)
 
+@techcafeApp.route('/iUsuario',methods=['GET','POST'])
+def iUsuario():
+    nombre = request.form['nombre'] 
+    correo = request.form['correo']
+    clave = request.form['clave']
+    claveCifrada = generate_password_hash(clave)
+    fechareg = datetime.datetime.now()
+    perfil = request.form['perfil']
+
+    crearUsuario = db.connection.cursor()
+    crearUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg, perfil) VALUES (%s,%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg, perfil))
+    db.connection.commit()
+    flash('Usuario Creado')
+    return redirect('/sUsuario')
+
+    
 
 if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
