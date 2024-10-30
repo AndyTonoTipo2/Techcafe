@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-10-2024 a las 17:39:36
+-- Tiempo de generación: 30-10-2024 a las 19:38:09
 -- Versión del servidor: 5.7.44-log
 -- Versión de PHP: 7.4.9
 
@@ -20,6 +20,51 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `techcafe`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articulos_del_pedido`
+--
+
+CREATE TABLE `articulos_del_pedido` (
+  `identificacion` int(8) NOT NULL,
+  `id_del_pedido` int(8) NOT NULL,
+  `id_del_producto` int(8) NOT NULL,
+  `cantidad` int(4) NOT NULL,
+  `precio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ordenes`
+--
+
+CREATE TABLE `ordenes` (
+  `identificacion` int(8) NOT NULL,
+  `id_de_usuario` int(8) NOT NULL,
+  `precio_total` int(11) NOT NULL,
+  `estado` text COLLATE utf8_spanish_ci NOT NULL,
+  `direccion_de_entrega` text COLLATE utf8_spanish_ci NOT NULL,
+  `creado_en` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `id_producto` int(8) NOT NULL,
+  `nombre` text COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
+  `precio` int(11) NOT NULL,
+  `categoria` text COLLATE utf8_spanish_ci NOT NULL,
+  `existencias` int(4) NOT NULL,
+  `creado_en` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -51,6 +96,27 @@ INSERT INTO `usuario` (`id`, `nombre`, `correo`, `clave`, `fechareg`, `perfil`) 
 --
 
 --
+-- Indices de la tabla `articulos_del_pedido`
+--
+ALTER TABLE `articulos_del_pedido`
+  ADD PRIMARY KEY (`identificacion`),
+  ADD KEY `id_del_pedido` (`id_del_pedido`),
+  ADD KEY `id_del_producto` (`id_del_producto`);
+
+--
+-- Indices de la tabla `ordenes`
+--
+ALTER TABLE `ordenes`
+  ADD PRIMARY KEY (`identificacion`),
+  ADD KEY `id_de_usuario` (`id_de_usuario`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id_producto`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -62,10 +128,45 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `articulos_del_pedido`
+--
+ALTER TABLE `articulos_del_pedido`
+  MODIFY `identificacion` int(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `ordenes`
+--
+ALTER TABLE `ordenes`
+  MODIFY `identificacion` int(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id_producto` int(8) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `articulos_del_pedido`
+--
+ALTER TABLE `articulos_del_pedido`
+  ADD CONSTRAINT `articulos_del_pedido_ibfk_1` FOREIGN KEY (`id_del_producto`) REFERENCES `productos` (`id_producto`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `ordenes`
+--
+ALTER TABLE `ordenes`
+  ADD CONSTRAINT `ordenes_ibfk_1` FOREIGN KEY (`id_de_usuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ordenes_ibfk_2` FOREIGN KEY (`identificacion`) REFERENCES `articulos_del_pedido` (`id_del_pedido`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
