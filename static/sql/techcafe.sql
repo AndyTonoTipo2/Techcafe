@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-10-2024 a las 16:36:34
+-- Tiempo de generación: 06-11-2024 a las 19:50:31
 -- Versión del servidor: 5.7.44-log
 -- Versión de PHP: 7.4.9
 
@@ -62,29 +62,30 @@ CREATE TABLE `productos` (
   `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
   `precio` int(11) NOT NULL,
   `categoria` text COLLATE utf8_spanish_ci NOT NULL,
-  `existencias` int(4) NOT NULL
+  `existencias` int(4) NOT NULL,
+  `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `precio`, `categoria`, `existencias`) VALUES
-(1, 'americano', 'Café expreso diluido con agua caliente, suave y con un sabor más ligero que el expreso puro.', 32, 'Bebida Caliente', 200),
-(2, 'latte', 'Café expreso combinado con una cantidad mayor de leche vaporizada y un poco de espuma en la parte superior.', 36, 'Bebida Caliente', 300),
-(3, 'capuccino', 'Café expreso con partes iguales de leche vaporizada y espuma de leche, creando una bebida cremosa y espumosa.', 36, 'Bebida Caliente', 400),
-(4, 'malteada', 'Bebida fría y cremosa, hecha con helado y leche, a menudo mezclada con jarabes de sabor.', 65, 'Bebida Fria', 400),
-(5, 'frappe', 'Bebida de café fría, mezclada con hielo y leche, a veces endulzada, ideal para refrescarse.', 70, 'Bebida Fria', 300),
-(6, 'te helado', 'Té frío, a menudo endulzado y servido con hielo, perfecto para días calurosos.', 35, 'Bebida Fria', 150),
-(7, 'te caliente', 'Infusión de hojas de té en agua caliente, con sabores que varían según el tipo de té.', 30, 'Bebida Caliente', 150),
-(8, 'latte helado', 'Versión fría del latte, con café expreso, leche fría y hielo, ideal para el verano.', 45, 'Bebida Fria', 200),
-(9, 'americano en las rocas', 'Variación del americano servido sobre hielo, manteniendo su sabor fuerte y rico.', 40, 'Bebida Fria', 100),
-(10, 'chocomilk', 'Bebida de chocolate mezclada con leche, popular entre niños y adultos, dulce y reconfortante.', 40, 'Bebida Fria', 250),
-(11, 'Panini de Jamon', 'Sándwich caliente de jamón curado y quesos, con pan crujiente y toques de mostaza.', 80, 'Comida', 50),
-(12, 'Panini Selva Negra', 'Mezcla de jamón, queso suizo y rodajas de cerezas, todo en un pan tostado y sabroso.', 80, 'Comida', 50),
-(13, 'Panini de Pollo', 'Pechuga de pollo a la parrilla con pesto, espinacas y mozzarella en pan tostado.', 80, 'Comida', 50),
-(14, 'Pastel de Chocolate', 'Delicioso pastel esponjoso de chocolate, cubierto con glaseado cremoso y decoraciones de cacao.', 65, 'Postre', 20),
-(15, 'Pastelito de Vainilla', 'Pequeño pastel ligero y esponjoso de vainilla, a menudo relleno de crema y espolvoreado con azúcar glas.', 65, 'Postre', 20);
+INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `precio`, `categoria`, `existencias`, `imagen`) VALUES
+(1, 'americano', 'Café expreso diluido con agua caliente, suave y con un sabor más ligero que el expreso puro.', 32, 'Bebida Caliente', 200, 'img1.png'),
+(2, 'latte', 'Café expreso combinado con una cantidad mayor de leche vaporizada y un poco de espuma en la parte superior.', 36, 'Bebida Caliente', 300, ''),
+(3, 'capuccino', 'Café expreso con partes iguales de leche vaporizada y espuma de leche, creando una bebida cremosa y espumosa.', 36, 'Bebida Caliente', 400, ''),
+(4, 'malteada', 'Bebida fría y cremosa, hecha con helado y leche, a menudo mezclada con jarabes de sabor.', 65, 'Bebida Fria', 400, ''),
+(5, 'frappe', 'Bebida de café fría, mezclada con hielo y leche, a veces endulzada, ideal para refrescarse.', 70, 'Bebida Fria', 300, ''),
+(6, 'te helado', 'Té frío, a menudo endulzado y servido con hielo, perfecto para días calurosos.', 35, 'Bebida Fria', 150, ''),
+(7, 'te caliente', 'Infusión de hojas de té en agua caliente, con sabores que varían según el tipo de té.', 30, 'Bebida Caliente', 150, ''),
+(8, 'latte helado', 'Versión fría del latte, con café expreso, leche fría y hielo, ideal para el verano.', 45, 'Bebida Fria', 200, ''),
+(9, 'americano en las rocas', 'Variación del americano servido sobre hielo, manteniendo su sabor fuerte y rico.', 40, 'Bebida Fria', 100, ''),
+(10, 'chocomilk', 'Bebida de chocolate mezclada con leche, popular entre niños y adultos, dulce y reconfortante.', 40, 'Bebida Fria', 250, ''),
+(11, 'Panini de Jamon', 'Sándwich caliente de jamón curado y quesos, con pan crujiente y toques de mostaza.', 80, 'Comida', 50, ''),
+(12, 'Panini Selva Negra', 'Mezcla de jamón, queso suizo y rodajas de cerezas, todo en un pan tostado y sabroso.', 80, 'Comida', 50, ''),
+(13, 'Panini de Pollo', 'Pechuga de pollo a la parrilla con pesto, espinacas y mozzarella en pan tostado.', 80, 'Comida', 50, ''),
+(14, 'Pastel de Chocolate', 'Delicioso pastel esponjoso de chocolate, cubierto con glaseado cremoso y decoraciones de cacao.', 65, 'Postre', 20, ''),
+(15, 'Pastelito de Vainilla', 'Pequeño pastel ligero y esponjoso de vainilla, a menudo relleno de crema y espolvoreado con azúcar glas.', 65, 'Postre', 20, '');
 
 -- --------------------------------------------------------
 
