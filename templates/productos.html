@@ -103,14 +103,113 @@
           {% endfor %}
           {% endif %}
           {% endwith %}
-    <div class="row row-cols-1 row-cols-md-3 g-4"> 
+
+<!-- Button Insert -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
+  <i class="fa-solid fa-plus fa-2xl" style="color: #FFF;"></i>
+</button>
+
+<!-- Modal Insert -->
+<div class="modal fade" id="insert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Producto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/iProducto" method="post">
+      <div class="modal-body">
+        <div class="col-md-6">
+          <label for="inputName" class="form-label">Nombre del Producto</label>
+            <input type="text" name="nombre" class="form-control" id="inputName">
+            </div>
+            
+            <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">Descripcion</label>
+                <input type="text" name="descripcion" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Precio</label>
+                <input type="number" name="precio" class="form-control" id="inputPassword4">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="inputPassword4" class="form-label">Categoria</label>
+                      <select name="categoria" class="form-select" aria-label="Default select example">
+                        <option selected>Select a Profile</option>
+                        <option value="BC">Bebida Caliente</option>
+                        <option value="BF">Bebida Fria</option>
+                        <option value="CO">Comida</option>
+                      </select>
+                    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+          <div class="row row-cols-1 row-cols-md-3 g-4"> 
+
       {% for p in productos %}
+
       <div class="col">
       <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="/static/img/{{p.6}}" class="card-img-top" alt="No se encontro la imagen">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <h5 class="card-title">{{p.1}}</h5>
+          <p class="card-text">{{p.2}}</p>
+          <p class="cardtext">{{p.3}}</p>
+          
+          <!-- Button Update -->
+<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#update{{p.0}}">
+  <i class="fa-solid fa-gear fa-xl"></i>
+</button>
+
+<!-- Modal Update -->
+<div class="modal fade" id="update{{p.0}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update a Product Nigger</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/uProducto" method="post">
+      <div class="modal-body">
+        <div class="col-md-6">
+          <label for="inputName" class="form-label">Nombre del Producto</label>
+            <input type="text" name="nombre" value="{{p.1}}" class="form-control" id="inputName">
+            </div>
+            
+            <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">Descripcion</label>
+                <input type="text" name="descripcion" value="{{p.2}}" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Precio</label>
+                <input type="number" name="precio" class="form-control" value="{{p.3}}" id="inputPassword4">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="inputPassword4" class="form-label">Categoria</label>
+                      <select name="categoria" class="form-select" aria-label="Default select example">
+                        <option selected>Select a Profile</option>
+                        <option value="BC">Bebida Caliente</option>
+                        <option value="BF">Bebida Fria</option>
+                        <option value="CO">Comida</option>
+                      </select>
+                    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
         </div>
       </div>
       </div>

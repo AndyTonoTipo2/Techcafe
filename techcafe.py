@@ -114,6 +114,14 @@ def dUsuario(id):
         flash('User deleted successfully')
         return redirect('/sUsuario')
 
+@techcafeApp.route('/sProducto', methods=['GET','POST'])
+def sProducto():
+    selProducto = db.connection.cursor()
+    selProducto.execute("SELECT * FROM productos")
+    p = selProducto.fetchall()
+    selProducto.close()
+    return render_template('productos.html',productos = p)
+
 if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
     techcafeApp.run(port=3300)    
