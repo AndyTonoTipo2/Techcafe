@@ -9,6 +9,8 @@ from models.entities.User import User
 
 techcafeApp = Flask(__name__)
 db          = MySQL(techcafeApp)
+#PythonAnywhere
+techcafeApp.config.from_object(config['development'])
 adminSesion = LoginManager(techcafeApp)
 
 @adminSesion.user_loader
@@ -122,6 +124,6 @@ def sProducto():
     selProducto.close()
     return render_template('productos.html',productos = p)
 
-if __name__ == '__main__':
+'''if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
-    techcafeApp.run(port=3300)    
+    techcafeApp.run(port=3300)'''    
