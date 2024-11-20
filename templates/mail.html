@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333333;
+            font-size: 24px;
+            text-align: center;
+        }
+        .email-header {
+            text-align: center;
+        }
+        .email-body {
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 5px;
+            margin-top: 20px;
+            color: #555555;
+            font-size: 16px;
+        }
+        .footer {
+            text-align: center;
+            color: #888888;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+
+        <div class="email-header">
+            <h1>Bienvenido {{nombre}}</h1>
+        </div>
+
+
+        <div class="image-container">
+            with app.open_resource("image.png") as fp:
+            msg.attach)
+        </div>
+
+        <div class="email-body">
+            <p>Estimado/a {{nombre}},</p>
+            <p>Estamos muy felices de contar con tu presencia. Esperamos que disfrutes de todos los beneficios que tenemos para ofrecerte. Si tienes alguna duda, no dudes en contactarnos.</p>
+            <p>¡Nos vemos pronto!</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Si no deseas recibir más correos, puedes <a href="unsubscribe-link">desuscribirte aquí</a>.</p>
+        </div>
+    </div>
+</body>
+</html>

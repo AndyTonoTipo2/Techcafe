@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect, flash, session
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, login_user, logout_user
+from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash
 import datetime
 from config import config
@@ -8,9 +9,12 @@ from models.ModelUser import ModelUser
 from models.entities.User import User
 
 techcafeApp = Flask(__name__)
-db          = MySQL(techcafeApp)
 #PythonAnywhere
 techcafeApp.config.from_object(config['development'])
+techcafeApp.config.from_object(config['mail'])
+db          = MySQL(techcafeApp)
+mail        = Mail(techcafeApp)
+
 adminSesion = LoginManager(techcafeApp)
 
 @adminSesion.user_loader
@@ -37,6 +41,9 @@ def signup():
         reUsuario = db.connection.cursor()
         reUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg)VALUES(%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg))
         db.connection.commit()
+        msg = Message(subject='Bienvenido a Techcafe', recipients=[correo])
+        msg.html = render_template('mail.html', nombre=nombre)
+        mail.send(msg)
         return render_template('home.html') 
     else: 
         return render_template('signup.html')
@@ -124,6 +131,6 @@ def sProducto():
     selProducto.close()
     return render_template('productos.html',productos = p)
 
-'''if __name__ == '__main__':
+if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
-    techcafeApp.run(port=3300)'''    
+    techcafeApp.run(port=3300)    
