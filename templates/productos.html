@@ -1,220 +1,197 @@
 {% extends 'layout.html' %}
-{% block titulo %} Productos {% endblock %}
-{% block contenido %} 
+{% block titulo %}Productos{% endblock %}
+{% block contenido %}
 
 <style>
-    .navbar {
-      background-color: rgb(201, 175, 129) !important
-    }
-  
-    .navbar-brand {
-      color: #050500;
-    }
-  
-    .navbar-nav .nav-link {
-      color: #050500;
-    }
-  
-    .navbar-nav .nav-link.active {
-      color: #050500;
-    }
-  
-    .dropdown-menu {
-      background-color: #6f4e37;
-    }
-  
-    .dropdown-item {
-      color: #f5f5dc;
-    }
-  
-    .dropdown-item:hover {
-      background-color: #8b5e3c;
-      color: #fff;
-    }
-  
-    body {
-      background-color: #cfc09c;
-      color: #4a2c1e;
-    }
-  
-    .carousel-item img {
-      border-radius: 0.5rem;
-    }
-  
-    .b-example-divider {
-          width: 100%;
-          height: 6rem;
-          background-color: rgba(0, 0, 0, .1);
-          border: solid rgba(0, 0, 0, .15);
-          border-width: 1px 0;
-          box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-        }
-  
-  </style>
-  
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <i class="fa-solid fa-star fa-bounce" style="color: #8f4000;"></i>
-        <a class="navbar-brand" href="/">Techcafe</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
-                <li><a class="dropdown-item" href="/sProducto">Productos</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">{{current_user.nombre}}</a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link" href="/signout" ><i class="fa-solid fa-arrow-right-from-bracket fa-2xs" style="color: #000000;"></i></a>
-            </li>
-  
+  .navbar {
+    background-color: rgb(201, 175, 129) !important;
+  }
+
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    color: #050500;
+  }
+
+  .dropdown-menu {
+    background-color: #6f4e37;
+  }
+
+  .dropdown-item:hover {
+    background-color: #8b5e3c;
+    color: #fff;
+  }
+
+  body {
+    background-color: #cfc09c;
+    color: #4a2c1e;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Techcafe</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Inicio</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Opciones</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
+            <li><a class="dropdown-item" href="/sProducto">Productos</a></li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-  </nav>
-
-  <div class="container">
-    {% with mensajes = get_flashed_messages() %}
-          {% if mensajes %}
-          {% for m in mensajes %}
-          <div class="alert alert-success alert-dismissible fade show" role="danger">
-            {{m}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          {% endfor %}
-          {% endif %}
-          {% endwith %}
-
-<!-- Button Insert -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
-  <i class="fa-solid fa-plus fa-2xl" style="color: #FFF;"></i>
-</button>
-
-<!-- Modal Insert -->
-<div class="modal fade" id="insert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Producto</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="/iProducto" method="post">
-      <div class="modal-body">
-        <div class="col-md-6">
-          <label for="inputName" class="form-label">Nombre del Producto</label>
-            <input type="text" name="nombre" class="form-control" id="inputName">
-            </div>
-            
-            <div class="col-md-6">
-            <label for="inputEmail4" class="form-label">Descripcion</label>
-                <input type="text" name="descripcion" class="form-control" id="inputEmail4">
-                </div>
-                <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Precio</label>
-                <input type="number" name="precio" class="form-control" id="inputPassword4">
-                    </div>
-                    <div class="col-md-6">
-                      <label for="inputPassword4" class="form-label">Categoria</label>
-                      <select name="categoria" class="form-select" aria-label="Default select example">
-                        <option selected>Select a Profile</option>
-                        <option value="BC">Bebida Caliente</option>
-                        <option value="BF">Bebida Fria</option>
-                        <option value="CO">Comida</option>
-                      </select>
-                    </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">{{ current_user.nombre }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signout">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
-          <div class="row row-cols-1 row-cols-md-3 g-4"> 
+</nav>
 
+<div class="container">
+  {% with mensajes = get_flashed_messages() %}
+  {% if mensajes %}
+  {% for m in mensajes %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ m }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <!-- Button Insert -->
+  <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#insert">
+      <i class="fa-solid fa-plus fa-lg"></i> Agregar Producto
+  </button>
+
+  <!-- Modal Insert -->
+  <div class="modal fade" id="insert" tabindex="-1" aria-labelledby="insertLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="insertLabel">Agregar Producto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/iProducto" method="post">
+                  <div class="modal-body">
+                      <div class="mb-3">
+                          <label for="nombre" class="form-label">Nombre del Producto</label>
+                          <input type="text" name="nombre" class="form-control" id="nombre" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="descripcion" class="form-label">Descripción</label>
+                          <input type="text" name="descripcion" class="form-control" id="descripcion" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="precio" class="form-label">Precio</label>
+                          <input type="number" name="precio" class="form-control" id="precio" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="categorias" class="form-label">Categoría</label>
+                          <select name="categorias" class="form-select" id="categorias" required>
+                              <option value="" disabled selected>Seleccione una categoría</option>
+                              <option value="BC">Bebida Caliente</option>
+                              <option value="BF">Bebida Fría</option>
+                              <option value="CO">Comida</option>
+                          </select>
+                      </div>
+                      <div class="mb-3">
+                          <label for="existencias" class="form-label">Existencias</label>
+                          <input type="number" name="existencias" class="form-control" id="existencias" required>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-primary">Guardar</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for p in productos %}
-
       <div class="col">
-      <div class="card">
-        <img src="/static/img/{{p.6}}" class="card-img-top" alt="No se encontro la imagen">
-        <div class="card-body">
-          <h5 class="card-title">{{p.1}}</h5>
-          <p class="card-text">{{p.2}}</p>
-          <p class="cardtext">{{p.3}}</p>
-          
-          <!-- Button Update -->
-<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#update{{p.0}}">
-  <i class="fa-solid fa-gear fa-xl"></i>
-</button>
+          <div class="card">
+              <img src="/static/img/{{ p[6] }}" class="card-img-top" alt="Imagen del producto">
+              <div class="card-body">
+                  <h5 class="card-title">{{ p[1] }}</h5>
+                  <p class="card-text">{{ p[2] }}</p>
+                  <p class="card-text"><strong>Precio:</strong> ${{ p[3] }}</p>
+                  <p class="card-text"><strong>Categoría:</strong> {{ p[4] }}</p>
+                  <p class="card-text"><strong>Existencias:</strong> {{ p[5] }}</p>
+
+                  <!-- Button Update -->
+                  <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#update{{ p[0] }}">
+                      <i class="fa-solid fa-edit"></i> Editar
+                  </button>
 
 <!-- Modal Update -->
-<div class="modal fade" id="update{{p.0}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Update a Product Nigger</h1>
+    <div class="modal fade" id="update{{ p[0] }}" tabindex="-1" aria-labelledby="updateLabel{{ p[0] }}" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="updateLabel{{ p[0] }}">Editar Producto</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="/uProducto" method="post">
-      <div class="modal-body">
-        <div class="col-md-6">
-          <label for="inputName" class="form-label">Nombre del Producto</label>
-            <input type="text" name="nombre" value="{{p.1}}" class="form-control" id="inputName">
-            </div>
-            
-            <div class="col-md-6">
-            <label for="inputEmail4" class="form-label">Descripcion</label>
-                <input type="text" name="descripcion" value="{{p.2}}" class="form-control" id="inputEmail4">
-                </div>
-                <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Precio</label>
-                <input type="number" name="precio" class="form-control" value="{{p.3}}" id="inputPassword4">
-                    </div>
-                    <div class="col-md-6">
-                      <label for="inputPassword4" class="form-label">Categoria</label>
-                      <select name="categoria" class="form-select" aria-label="Default select example">
-                        <option selected>Select a Profile</option>
-                        <option value="BC">Bebida Caliente</option>
-                        <option value="BF">Bebida Fria</option>
-                        <option value="CO">Comida</option>
-                      </select>
-                    </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </form>
     </div>
-  </div>
-</div>
-
-
+    <form action="/uProducto/{{ p[0] }}" method="post">
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="nombre{{ p[0] }}" class="form-label">Nombre del Producto</label>
+                <input type="text" name="nombre" class="form-control" id="nombre{{ p[0] }}" value="{{ p[1] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion{{ p[0] }}" class="form-label">Descripción</label>
+                <input type="text" name="descripcion" class="form-control" id="descripcion{{ p[0] }}" value="{{ p[2] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="precio{{ p[0] }}" class="form-label">Precio</label>
+                <input type="number" name="precio" class="form-control" id="precio{{ p[0] }}" value="{{ p[3] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="categorias{{ p[0] }}" class="form-label">Categoría</label>
+                <select name="categorias" class="form-select" id="categorias{{ p[0] }}" required>
+                    <option value="BC" {% if p[4] == "BC" %}selected{% endif %}>Bebida Caliente</option>
+                    <option value="BF" {% if p[4] == "BF" %}selected{% endif %}>Bebida Fría</option>
+                    <option value="CO" {% if p[4] == "CO" %}selected{% endif %}>Comida</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="existencias{{ p[0] }}" class="form-label">Existencias</label>
+                <input type="number" name="existencias" class="form-control" id="existencias{{ p[0] }}" value="{{ p[5] }}" required>
+            </div>
         </div>
-      </div>
-      </div>
-    {% endfor %}
-  </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+    </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button Delete -->
+    <form action="/dProducto/{{ p[0] }}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-danger">
+            <i class="fa-solid fa-trash"></i> Eliminar
+        </button>
+    </form>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
 </div>
 
 {% endblock %}

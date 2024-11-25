@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, request, redirect, flash, ses
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, login_user, logout_user
 from flask_mail import Mail, Message
+from flask import send_file
+from io import BytesIO
 from werkzeug.security import generate_password_hash
 import datetime
 from config import config
@@ -42,6 +44,10 @@ def signup():
         reUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg)VALUES(%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg))
         db.connection.commit()
         msg = Message(subject='Bienvenido a Techcafe', recipients=[correo])
+        msg.body = 'Este es un correo con una imagen adjunta'
+        with open('static/img/011.png', 'rb') as f:
+            img_data = f.read()
+            msg.attach('011.png', 'image/png', img_data)
         msg.html = render_template('mail.html', nombre=nombre)
         mail.send(msg)
         return render_template('home.html') 
@@ -130,6 +136,46 @@ def sProducto():
     p = selProducto.fetchall()
     selProducto.close()
     return render_template('productos.html',productos = p)
+
+@techcafeApp.route('/iProducto', methods=['POST'])
+def iProducto():
+    nombre = request.form['nombre']
+    descripcion = request.form['descripcion']
+    precio = request.form['precio']
+    categoria = request.form['categorias']
+    existencias = request.form['existencias']
+    
+    cursor = db.connection.cursor()
+    cursor.execute("INSERT INTO productos (nombre, descripcion, precio, categoria, existencias) VALUES (%s, %s, %s, %s, %s)",(nombre, descripcion, precio, categoria, existencias))
+    db.connection.commit()
+    flash('Producto agregado exitosamente.')
+    return redirect('/sProducto')
+
+
+@techcafeApp.route('/uProducto/<int:id>', methods=['POST'])
+def uProducto(id):
+    nombre = request.form['nombre']
+    descripcion = request.form['descripcion']
+    precio = request.form['precio']
+    categoria = request.form['categorias']
+    existencias = request.form['existencias']
+    
+    cursor = db.connection.cursor()
+    cursor.execute("UPDATE productos SET nombre = %s, descripcion = %s, precio = %s, categoria = %s, existencias = %sWHERE id_producto = %s", (nombre, descripcion, precio, categoria, existencias, id))
+    db.connection.commit()
+    flash('Producto actualizado exitosamente.')
+    return redirect('/sProducto')
+
+
+@techcafeApp.route('/dProducto/<int:id>', methods=['POST'])
+def dProducto(id):
+    cursor = db.connection.cursor()
+    cursor.execute("DELETE FROM productos WHERE id_producto = %s", (id,))
+    db.connection.commit()
+    flash('Producto eliminado exitosamente.')
+    return redirect('/sProducto')
+
+
 
 if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])

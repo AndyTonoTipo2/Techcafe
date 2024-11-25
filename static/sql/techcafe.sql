@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-11-2024 a las 17:59:14
+-- Tiempo de generación: 25-11-2024 a las 16:56:39
 -- Versión del servidor: 5.7.44-log
 -- Versión de PHP: 7.4.9
 
@@ -71,7 +71,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `precio`, `categoria`, `existencias`, `imagen`) VALUES
-(1, 'Americano', 'Café expreso diluido con agua caliente, suave y con un sabor más ligero que el expreso puro.', 32, 'BC', 200, 'img1.png'),
+(1, 'americano', 'Café expreso diluido con agua caliente, suave y con un sabor más ligero que el expreso puro.', 33, 'BC', 200, 'img1.png'),
 (2, 'Latte', 'Café expreso combinado con una cantidad mayor de leche vaporizada y un poco de espuma en la parte superior.', 36, 'BC', 300, 'img2.png'),
 (3, 'Capuccino', 'Café expreso con partes iguales de leche vaporizada y espuma de leche, creando una bebida cremosa y espumosa.', 36, 'BC', 400, 'img3.png'),
 (4, 'Malteada', 'Bebida fría y cremosa, hecha con helado y leche, a menudo mezclada con jarabes de sabor.', 65, 'BF', 400, 'img4.png'),
@@ -84,8 +84,7 @@ INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `precio`, `cate
 (11, 'Panini de Jamon', 'Sándwich caliente de jamón curado y quesos, con pan crujiente y toques de mostaza.', 80, 'CO', 50, 'img11.png'),
 (12, 'Panini Selva Negra', 'Mezcla de jamón, queso suizo y rodajas de cerezas, todo en un pan tostado y sabroso.', 80, 'CO', 50, 'img12.png'),
 (13, 'Panini de Pollo', 'Pechuga de pollo a la parrilla con pesto, espinacas y mozzarella en pan tostado.', 80, 'CO', 50, 'img13.png'),
-(14, 'Pastel de Chocolate', 'Delicioso pastel esponjoso de chocolate, cubierto con glaseado cremoso y decoraciones de cacao.', 65, 'CO', 20, 'img14.png'),
-(15, 'Pastelito de Vainilla', 'Pequeño pastel ligero y esponjoso de vainilla, a menudo relleno de crema y espolvoreado con azúcar glas.', 65, 'CO', 20, 'img15.png');
+(14, 'Pastel de Chocolate', 'Delicioso pastel esponjoso de chocolate, cubierto con glaseado cremoso y decoraciones de cacao.', 65, 'CO', 20, 'img14.png');
 
 -- --------------------------------------------------------
 
@@ -111,7 +110,10 @@ INSERT INTO `usuario` (`id`, `nombre`, `correo`, `clave`, `fechareg`, `perfil`) 
 (2, 'asfcas', 'andres.rojas1816@alumnos.udg.mx', 'scrypt:32768:8:1$CocrhxxIohcdT1Yq$8f292aa7c388fc908b80d26c9119d3a31a9d326408adc64a16ae051acf2cd48c534abd17afbbed43c3c51bfcf26aee04f67381ee150d0ae6cd07da5c971d96ca', '2024-10-03 09:54:30', 'A'),
 (3, 'Nigger', 'dihaos@gmail.com', 'scrypt:32768:8:1$B3Uay9WdO4OlSFyV$dd334beae258b4d41c09eb72080cd1e52ac17c6f1e855b054fb511a84e05e596d311b8ecc2df084b2268d957b86e53ef7dab9278fc05c75ea6d5d49f9ee41295', '2024-10-17 10:49:34', 'U'),
 (4, 'Yael', 'nigger@gmail.com', 'scrypt:32768:8:1$f132Hn13NoC5caKY$3d63bb072419d0b4e998919771543e4fbb3fda77aa297177f4f801041bb80a62ea8c68d344d7079b4e335853f9adb804d5b44b6da913524f2275483bb7c16a00', '2024-10-17 10:49:55', 'U'),
-(6, 'hola', 'hola@gmail.com', 'scrypt:32768:8:1$rUto2Vk4ONOHd3So$93e35bf3b4002528ee256a233dd58fe7b35cc27c57c41861cda974d4dbd801c6788b163d678c57b99d84d022c358995f9328c58c94e46a964c4ddba2361b3dad', '2024-10-31 09:32:27', 'U');
+(6, 'hola', 'hola@gmail.com', 'scrypt:32768:8:1$rUto2Vk4ONOHd3So$93e35bf3b4002528ee256a233dd58fe7b35cc27c57c41861cda974d4dbd801c6788b163d678c57b99d84d022c358995f9328c58c94e46a964c4ddba2361b3dad', '2024-10-31 09:32:27', 'U'),
+(7, 'Sebas', 'sebastian.chavez1904@alumnos.udg.mx', 'scrypt:32768:8:1$NwehTBO9jqD9Ierw$f628781ec251b6e3b8c6fe5610ea92f11a94d75be054fccd98039253ebf2e26d325f29c64638085ae26f0d0d76ae95e6d88181601014a4b21ef5a583d8f384b5', '2024-11-25 09:28:05', 'U'),
+(13, 'rem', 'rembrandtmauricio18@gmail.com', 'scrypt:32768:8:1$Lsu8fQJXxDumqNSp$1d8c1ce5f0caa58695519d3f2ab6eef111956eb1ce02e7c674903da38f6fadf0a8b1679e721e52a90c13f44d5d20fef32ad516a2919215a0fa34ce6dc90c51a0', '2024-11-25 09:52:52', 'U'),
+(14, 'and', 'andyrojasdlcruz@gmail.com', 'scrypt:32768:8:1$chtjlq3brKEZShhB$522610a183fb38b7e2389ec6a0b7b2112dd1e5ebe23f63ed22b82a0aa6543bcce892f5cb1898754cb449ef544c72938f25fff3e1b5495585d740f4fbdf066a0f', '2024-11-25 09:55:13', 'U');
 
 --
 -- Índices para tablas volcadas
@@ -171,7 +173,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
