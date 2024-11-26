@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
+
 {% block titulo %}Productos{% endblock %}
+
 {% block contenido %}
 
 <style>
@@ -63,8 +65,8 @@
   {% if mensajes %}
   {% for m in mensajes %}
   <div class="alert alert-success alert-dismissible fade show" role="alert">
-      {{ m }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {{ m }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   {% endfor %}
   {% endif %}
@@ -72,126 +74,130 @@
 
   <!-- Button Insert -->
   <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#insert">
-      <i class="fa-solid fa-plus fa-lg"></i> Agregar Producto
+    <i class="fa-solid fa-plus fa-lg"></i> Agregar Producto
   </button>
 
   <!-- Modal Insert -->
   <div class="modal fade" id="insert" tabindex="-1" aria-labelledby="insertLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="insertLabel">Agregar Producto</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <form action="/iProducto" method="post">
-                  <div class="modal-body">
-                      <div class="mb-3">
-                          <label for="nombre" class="form-label">Nombre del Producto</label>
-                          <input type="text" name="nombre" class="form-control" id="nombre" required>
-                      </div>
-                      <div class="mb-3">
-                          <label for="descripcion" class="form-label">Descripción</label>
-                          <input type="text" name="descripcion" class="form-control" id="descripcion" required>
-                      </div>
-                      <div class="mb-3">
-                          <label for="precio" class="form-label">Precio</label>
-                          <input type="number" name="precio" class="form-control" id="precio" required>
-                      </div>
-                      <div class="mb-3">
-                          <label for="categorias" class="form-label">Categoría</label>
-                          <select name="categorias" class="form-select" id="categorias" required>
-                              <option value="" disabled selected>Seleccione una categoría</option>
-                              <option value="BC">Bebida Caliente</option>
-                              <option value="BF">Bebida Fría</option>
-                              <option value="CO">Comida</option>
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                          <label for="existencias" class="form-label">Existencias</label>
-                          <input type="number" name="existencias" class="form-control" id="existencias" required>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                      <button type="submit" class="btn btn-primary">Guardar</button>
-                  </div>
-              </form>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="insertLabel">Agregar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/iProducto" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre del Producto</label>
+              <input type="text" name="nombre" class="form-control" id="nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <input type="text" name="descripcion" class="form-control" id="descripcion" required>
+            </div>
+            <div class="mb-3">
+              <label for="precio" class="form-label">Precio</label>
+              <input type="number" name="precio" class="form-control" id="precio" required>
+            </div>
+            <div class="mb-3">
+              <label for="categorias" class="form-label">Categoría</label>
+              <select name="categorias" class="form-select" id="categorias" required>
+                <option value="" disabled selected>Seleccione una categoría</option>
+                <option value="BC">Bebida Caliente</option>
+                <option value="BF">Bebida Fría</option>
+                <option value="CO">Comida</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="existencias" class="form-label">Existencias</label>
+              <input type="number" name="existencias" class="form-control" id="existencias" required>
+            </div>
+            <div class="mb-3">
+              <label for="imagen" class="form-label">Imagen</label>
+              <input type="file" name="imagen" class="form-control" id="imagen" accept="image/*" required>
+            </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
       </div>
+    </div>
   </div>
 
   <div class="row row-cols-1 row-cols-md-3 g-4">
-      {% for p in productos %}
-      <div class="col">
-          <div class="card">
-              <img src="/static/img/{{ p[6] }}" class="card-img-top" alt="Imagen del producto">
-              <div class="card-body">
-                  <h5 class="card-title">{{ p[1] }}</h5>
-                  <p class="card-text">{{ p[2] }}</p>
-                  <p class="card-text"><strong>Precio:</strong> ${{ p[3] }}</p>
-                  <p class="card-text"><strong>Categoría:</strong> {{ p[4] }}</p>
-                  <p class="card-text"><strong>Existencias:</strong> {{ p[5] }}</p>
+    {% for p in productos %}
+    <div class="col">
+      <div class="card">
+        <img src="/static/img/{{ p[6] }}" class="card-img-top" alt="Imagen del producto">
+        <div class="card-body">
+          <h5 class="card-title">{{ p[1] }}</h5>
+          <p class="card-text">{{ p[2] }}</p>
+          <p class="card-text"><strong>Precio:</strong> ${{ p[3] }}</p>
+          <p class="card-text"><strong>Categoría:</strong> {{ p[4] }}</p>
+          <p class="card-text"><strong>Existencias:</strong> {{ p[5] }}</p>
 
-                  <!-- Button Update -->
-                  <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#update{{ p[0] }}">
-                      <i class="fa-solid fa-edit"></i> Editar
-                  </button>
+          <!-- Button Update -->
+          <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#update{{ p[0] }}">
+            <i class="fa-solid fa-edit"></i> Editar
+          </button>
 
-<!-- Modal Update -->
-    <div class="modal fade" id="update{{ p[0] }}" tabindex="-1" aria-labelledby="updateLabel{{ p[0] }}" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="updateLabel{{ p[0] }}">Editar Producto</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <!-- Modal Update -->
+          <div class="modal fade" id="update{{ p[0] }}" tabindex="-1" aria-labelledby="updateLabel{{ p[0] }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="updateLabel{{ p[0] }}">Editar Producto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/uProducto/{{ p[0] }}" method="post" enctype="multipart/form-data">
+                  <div class="modal-body">
+                    <div class="mb-3">
+                      <label for="nombre{{ p[0] }}" class="form-label">Nombre del Producto</label>
+                      <input type="text" name="nombre" class="form-control" id="nombre{{ p[0] }}" value="{{ p[1] }}" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="descripcion{{ p[0] }}" class="form-label">Descripción</label>
+                      <input type="text" name="descripcion" class="form-control" id="descripcion{{ p[0] }}" value="{{ p[2] }}" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="precio{{ p[0] }}" class="form-label">Precio</label>
+                      <input type="number" name="precio" class="form-control" id="precio{{ p[0] }}" value="{{ p[3] }}" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="categorias{{ p[0] }}" class="form-label">Categoría</label>
+                      <select name="categorias" class="form-select" id="categorias{{ p[0] }}" required>
+                        <option value="BC" {% if p[4] == "BC" %}selected{% endif %}>Bebida Caliente</option>
+                        <option value="BF" {% if p[4] == "BF" %}selected{% endif %}>Bebida Fría</option>
+                        <option value="CO" {% if p[4] == "CO" %}selected{% endif %}>Comida</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="existencias{{ p[0] }}" class="form-label">Existencias</label>
+                      <input type="number" name="existencias" class="form-control" id="existencias{{ p[0] }}" value="{{ p[5] }}" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="imagen{{ p[0] }}" class="form-label">Imagen</label>
+                      <input type="file" name="imagen" class="form-control" id="imagen{{ p[0] }}" accept="image/*">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Button Delete -->
+          <a href="/dProducto/{{ p[0] }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Eliminar</a>
+        </div>
+      </div>
     </div>
-    <form action="/uProducto/{{ p[0] }}" method="post">
-        <div class="modal-body">
-            <div class="mb-3">
-                <label for="nombre{{ p[0] }}" class="form-label">Nombre del Producto</label>
-                <input type="text" name="nombre" class="form-control" id="nombre{{ p[0] }}" value="{{ p[1] }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="descripcion{{ p[0] }}" class="form-label">Descripción</label>
-                <input type="text" name="descripcion" class="form-control" id="descripcion{{ p[0] }}" value="{{ p[2] }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="precio{{ p[0] }}" class="form-label">Precio</label>
-                <input type="number" name="precio" class="form-control" id="precio{{ p[0] }}" value="{{ p[3] }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="categorias{{ p[0] }}" class="form-label">Categoría</label>
-                <select name="categorias" class="form-select" id="categorias{{ p[0] }}" required>
-                    <option value="BC" {% if p[4] == "BC" %}selected{% endif %}>Bebida Caliente</option>
-                    <option value="BF" {% if p[4] == "BF" %}selected{% endif %}>Bebida Fría</option>
-                    <option value="CO" {% if p[4] == "CO" %}selected{% endif %}>Comida</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="existencias{{ p[0] }}" class="form-label">Existencias</label>
-                <input type="number" name="existencias" class="form-control" id="existencias{{ p[0] }}" value="{{ p[5] }}" required>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        </div>
-    </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Button Delete -->
-    <form action="/dProducto/{{ p[0] }}" method="post" class="d-inline">
-        <button type="submit" class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i> Eliminar
-        </button>
-    </form>
-</div>
-</div>
-</div>
-{% endfor %}
-</div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

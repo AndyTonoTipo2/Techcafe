@@ -25,11 +25,6 @@ def cargarUsuario(id):
 
 @techcafeApp.route('/')
 def home():
-    '''if session['NombreU']:
-        if session['PerfilU'] == 'A':
-            return render_template('admin.html')
-        else:          
-            return render_template('user.html')'''
     return render_template('home.html')
 
 @techcafeApp.route('/signup',methods=['GET','POST'])
@@ -69,10 +64,10 @@ def signin():
                 else:
                     return render_template('user.html')
             else:
-                flash('contraseña incorrecta')
+                flash('Contraseña incorrecta')
                 return redirect(request.url)
         else:
-            flash('Usuario Inexistente')
+            flash('Usuario inexistente')
             return redirect(request.url)        
     else:
         return render_template('signin.html')
@@ -88,7 +83,7 @@ def sUsuario():
     selUsuario.execute("SELECT * FROM usuario")
     u = selUsuario.fetchall()
     selUsuario.close()
-    return render_template('usuarios.html',usuarios = u)
+    return render_template('usuarios.html', usuarios=u)
 
 @techcafeApp.route('/iUsuario',methods=['GET','POST'])
 def iUsuario():
@@ -122,12 +117,11 @@ def uUsuario(id):
 
 @techcafeApp.route('/dUsuario/<int:id>', methods=['GET', 'POST'])
 def dUsuario(id):
-    
-        eliminarUsuario = db.connection.cursor()
-        eliminarUsuario.execute("DELETE FROM usuario WHERE id=%s", (id,))
-        db.connection.commit()
-        flash('User deleted successfully')
-        return redirect('/sUsuario')
+    eliminarUsuario = db.connection.cursor()
+    eliminarUsuario.execute("DELETE FROM usuario WHERE id=%s", (id,))
+    db.connection.commit()
+    flash('Usuario eliminado exitosamente')
+    return redirect('/sUsuario')
 
 @techcafeApp.route('/sProducto', methods=['GET','POST'])
 def sProducto():
@@ -135,7 +129,7 @@ def sProducto():
     selProducto.execute("SELECT * FROM productos")
     p = selProducto.fetchall()
     selProducto.close()
-    return render_template('productos.html',productos = p)
+    return render_template('productos.html', productos=p)
 
 @techcafeApp.route('/iProducto', methods=['POST'])
 def iProducto():
@@ -144,13 +138,26 @@ def iProducto():
     precio = request.form['precio']
     categoria = request.form['categorias']
     existencias = request.form['existencias']
+
+    # Verifica si se subió una imagen
+    imagen = request.files.get('imagen')  # Este es el archivo de la imagen
     
+    if imagen:
+        # Guardar la imagen en la carpeta static/img
+        imagen_filename = imagen.filename
+        imagen_path = f"static/img/{imagen_filename}"
+        imagen.save(imagen_path)
+    else:
+        imagen_filename = None  # No se subió ninguna imagen
+
     cursor = db.connection.cursor()
-    cursor.execute("INSERT INTO productos (nombre, descripcion, precio, categoria, existencias) VALUES (%s, %s, %s, %s, %s)",(nombre, descripcion, precio, categoria, existencias))
+    cursor.execute("""
+        INSERT INTO productos (nombre, descripcion, precio, categoria, existencias, imagen)
+        VALUES (%s, %s, %s, %s, %s, %s)
+    """, (nombre, descripcion, precio, categoria, existencias, imagen_filename))
     db.connection.commit()
     flash('Producto agregado exitosamente.')
     return redirect('/sProducto')
-
 
 @techcafeApp.route('/uProducto/<int:id>', methods=['POST'])
 def uProducto(id):
@@ -159,13 +166,27 @@ def uProducto(id):
     precio = request.form['precio']
     categoria = request.form['categorias']
     existencias = request.form['existencias']
+
+    # Verifica si se subió una nueva imagen
+    imagen = request.files.get('imagen')  # Este es el archivo de la imagen
     
+    if imagen:
+        # Guardar la imagen en la carpeta static/img
+        imagen_filename = imagen.filename
+        imagen_path = f"static/img/{imagen_filename}"
+        imagen.save(imagen_path)
+    else:
+        imagen_filename = None  # No se subió ninguna nueva imagen
+
     cursor = db.connection.cursor()
-    cursor.execute("UPDATE productos SET nombre = %s, descripcion = %s, precio = %s, categoria = %s, existencias = %sWHERE id_producto = %s", (nombre, descripcion, precio, categoria, existencias, id))
+    cursor.execute("""
+        UPDATE productos
+        SET nombre = %s, descripcion = %s, precio = %s, categoria = %s, existencias = %s, imagen = %s
+        WHERE id_producto = %s
+    """, (nombre, descripcion, precio, categoria, existencias, imagen_filename, id))
     db.connection.commit()
     flash('Producto actualizado exitosamente.')
     return redirect('/sProducto')
-
 
 @techcafeApp.route('/dProducto/<int:id>', methods=['POST'])
 def dProducto(id):
@@ -175,8 +196,6 @@ def dProducto(id):
     flash('Producto eliminado exitosamente.')
     return redirect('/sProducto')
 
-
-
 if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
-    techcafeApp.run(port=3300)    
+    techcafeApp.run(port=3300)

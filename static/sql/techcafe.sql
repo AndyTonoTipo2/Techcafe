@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-11-2024 a las 16:56:39
--- Versión del servidor: 5.7.44-log
+-- Tiempo de generación: 26-11-2024 a las 17:02:08
+-- Versión del servidor: 8.0.39
 -- Versión de PHP: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `articulos_del_pedido` (
-  `identificacion` int(8) NOT NULL,
-  `id_del_pedido` int(8) NOT NULL,
-  `id_del_producto` int(8) NOT NULL,
-  `cantidad` int(4) NOT NULL,
-  `precio` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `identificacion` int NOT NULL,
+  `id_del_pedido` int NOT NULL,
+  `id_del_producto` int NOT NULL,
+  `cantidad` int NOT NULL,
+  `precio` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -42,13 +42,13 @@ CREATE TABLE `articulos_del_pedido` (
 --
 
 CREATE TABLE `ordenes` (
-  `identificacion` int(8) NOT NULL,
-  `id_de_usuario` int(8) NOT NULL,
-  `precio_total` int(11) NOT NULL,
-  `estado` text COLLATE utf8_spanish_ci NOT NULL,
-  `direccion_de_entrega` text COLLATE utf8_spanish_ci NOT NULL,
+  `identificacion` int NOT NULL,
+  `id_de_usuario` int NOT NULL,
+  `precio_total` int NOT NULL,
+  `estado` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `direccion_de_entrega` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   `creado_en` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -57,23 +57,23 @@ CREATE TABLE `ordenes` (
 --
 
 CREATE TABLE `productos` (
-  `id_producto` int(8) NOT NULL,
-  `nombre` text COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
-  `precio` int(11) NOT NULL,
-  `categoria` text COLLATE utf8_spanish_ci NOT NULL,
-  `existencias` int(4) NOT NULL,
-  `imagen` varchar(50) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id_producto` int NOT NULL,
+  `nombre` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `precio` int NOT NULL,
+  `categoria` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `existencias` int NOT NULL,
+  `imagen` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `precio`, `categoria`, `existencias`, `imagen`) VALUES
-(1, 'americano', 'Café expreso diluido con agua caliente, suave y con un sabor más ligero que el expreso puro.', 33, 'BC', 200, 'img1.png'),
+(1, 'Americano', 'Café expreso diluido con agua caliente, suave y con un sabor más ligero que el expreso puro.', 33, 'BC', 200, 'img1.png'),
 (2, 'Latte', 'Café expreso combinado con una cantidad mayor de leche vaporizada y un poco de espuma en la parte superior.', 36, 'BC', 300, 'img2.png'),
-(3, 'Capuccino', 'Café expreso con partes iguales de leche vaporizada y espuma de leche, creando una bebida cremosa y espumosa.', 36, 'BC', 400, 'img3.png'),
+(3, 'Capuccino', 'Café expreso con partes iguales de leche vaporizada y espuma de leche, creando una bebida cremosa y espumosa.', 32, 'BC', 400, 'img3.png'),
 (4, 'Malteada', 'Bebida fría y cremosa, hecha con helado y leche, a menudo mezclada con jarabes de sabor.', 65, 'BF', 400, 'img4.png'),
 (5, 'Frappe', 'Bebida de café fría, mezclada con hielo y leche, a veces endulzada, ideal para refrescarse.', 70, 'BF', 300, 'img5.png'),
 (6, 'Te helado', 'Té frío, a menudo endulzado y servido con hielo, perfecto para días calurosos.', 35, 'BF', 150, 'img6.png'),
@@ -84,7 +84,10 @@ INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `precio`, `cate
 (11, 'Panini de Jamon', 'Sándwich caliente de jamón curado y quesos, con pan crujiente y toques de mostaza.', 80, 'CO', 50, 'img11.png'),
 (12, 'Panini Selva Negra', 'Mezcla de jamón, queso suizo y rodajas de cerezas, todo en un pan tostado y sabroso.', 80, 'CO', 50, 'img12.png'),
 (13, 'Panini de Pollo', 'Pechuga de pollo a la parrilla con pesto, espinacas y mozzarella en pan tostado.', 80, 'CO', 50, 'img13.png'),
-(14, 'Pastel de Chocolate', 'Delicioso pastel esponjoso de chocolate, cubierto con glaseado cremoso y decoraciones de cacao.', 65, 'CO', 20, 'img14.png');
+(14, 'Pastel de Chocolate', 'Delicioso pastel esponjoso de chocolate, cubierto con glaseado cremoso y decoraciones de cacao.', 65, 'CO', 20, 'img14.png'),
+(16, 'pene', 'sdadad', 32, 'BC', 234, 'img14.png'),
+(17, 'Pastel de Vainilla', 'nigger', 60, 'CO', 100, 'img14.png'),
+(18, 'sdxada', 'adadadad', 324, 'BC', 321334, '21.png');
 
 -- --------------------------------------------------------
 
@@ -93,13 +96,13 @@ INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `precio`, `cate
 --
 
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `correo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `clave` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `id` int NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `correo` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `clave` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   `fechareg` datetime NOT NULL,
-  `perfil` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'U'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `perfil` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL DEFAULT 'U'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -155,25 +158,25 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `articulos_del_pedido`
 --
 ALTER TABLE `articulos_del_pedido`
-  MODIFY `identificacion` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `identificacion` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ordenes`
 --
 ALTER TABLE `ordenes`
-  MODIFY `identificacion` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `identificacion` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
