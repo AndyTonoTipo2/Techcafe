@@ -27,6 +27,34 @@
     background-color: #cfc09c;
     color: #4a2c1e;
   }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .card img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+  }
+
+  .card-body {
+    flex-grow: 1;
+  }
+
+  .card-title, .card-text {
+    margin-bottom: 10px;
+  }
+
+  .row {
+    margin: 0 -8px;
+  }
+
+  .col {
+    padding: 8px;
+  }
 </style>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -72,8 +100,10 @@
   {% endif %}
   {% endwith %}
 
+  <br>
+
   <!-- Button Insert -->
-  <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#insert">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
     <i class="fa-solid fa-plus fa-lg"></i> Agregar Producto
   </button>
 
@@ -129,7 +159,7 @@
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for p in productos %}
     <div class="col">
-      <div class="card">
+      <div class="card h-100">
         <img src="/static/img/{{ p[6] }}" class="card-img-top" alt="Imagen del producto">
         <div class="card-body">
           <h5 class="card-title">{{ p[1] }}</h5>
@@ -180,6 +210,11 @@
                     <div class="mb-3">
                       <label for="imagen{{ p[0] }}" class="form-label">Imagen</label>
                       <input type="file" name="imagen" class="form-control" id="imagen{{ p[0] }}" accept="image/*">
+                      {% if p[6] %}
+                        <div class="mt-2">
+                          <img src="/static/img/{{ p[6] }}" class="img-fluid" alt="Imagen actual del producto">
+                        </div>
+                      {% endif %}
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -192,7 +227,11 @@
           </div>
 
           <!-- Button Delete -->
-          <a href="/dProducto/{{ p[0] }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Eliminar</a>
+          <form action="/dProducto/{{ p[0] }}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger">
+              <i class="fa-solid fa-trash"></i> Eliminar
+            </button>
+          </form>
         </div>
       </div>
     </div>

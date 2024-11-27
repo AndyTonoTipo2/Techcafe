@@ -168,7 +168,9 @@ def uProducto(id):
     existencias = request.form['existencias']
 
     # Verifica si se subió una nueva imagen
-    imagen = request.files.get('imagen')  # Este es el archivo de la imagen
+    imagen = request.files.get('imagen')
+    
+    cursor = db.connection.cursor()
     
     if imagen:
         # Guardar la imagen en la carpeta static/img
@@ -176,9 +178,10 @@ def uProducto(id):
         imagen_path = f"static/img/{imagen_filename}"
         imagen.save(imagen_path)
     else:
-        imagen_filename = None  # No se subió ninguna nueva imagen
+        # Si no se subió una nueva imagen, mantén la imagen existente
+        cursor.execute("SELECT imagen FROM productos WHERE id_producto = %s", (id,))
+        imagen_filename = cursor.fetchone()[0]
 
-    cursor = db.connection.cursor()
     cursor.execute("""
         UPDATE productos
         SET nombre = %s, descripcion = %s, precio = %s, categoria = %s, existencias = %s, imagen = %s
@@ -188,6 +191,7 @@ def uProducto(id):
     flash('Producto actualizado exitosamente.')
     return redirect('/sProducto')
 
+
 @techcafeApp.route('/dProducto/<int:id>', methods=['POST'])
 def dProducto(id):
     cursor = db.connection.cursor()
@@ -196,6 +200,6 @@ def dProducto(id):
     flash('Producto eliminado exitosamente.')
     return redirect('/sProducto')
 
-if __name__ == '__main__':
+'''if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
-    techcafeApp.run(port=3300)
+    techcafeApp.run(port=3300)'''
