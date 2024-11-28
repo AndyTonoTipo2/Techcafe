@@ -209,6 +209,6 @@ def dProducto(id):
     flash('Producto eliminado exitosamente.')
     return redirect('/sProducto') 
 
-if __name__ == '__main__':
+'''if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
-    techcafeApp.run(port=3300)
+    techcafeApp.run(port=3300)'''
