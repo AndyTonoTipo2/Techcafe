@@ -50,6 +50,33 @@ def signup():
         clave = request.form['clave']
         claveCifrada = generate_password_hash(clave)
         fechareg = datetime.datetime.now()
+
+        reUsuario = db.connection.cursor()
+        reUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg)VALUES(%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg))
+        db.connection.commit()
+
+        try:
+            # La indentación aquí es clave
+            with open('static/img/011.png', 'rb') as f:
+                img_data = f.read()
+                msg.attach('011.png', 'image/png', img_data)
+        except FileNotFoundError:
+            flash('Imagen no encontrada', 'error')
+
+        msg.body = 'Este es un correo con una imagen adjunta'
+        msg.html = render_template('mail.html', nombre=nombre)
+        mail.send(msg)
+
+        return render_template('home.html')
+    else:
+        return render_template('signup.html')
+
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        correo = request.form['correo']
+        clave = request.form['clave']
+        claveCifrada = generate_password_hash(clave)
+        fechareg = datetime.datetime.now()
         reUsuario = db.connection.cursor()
         reUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg)VALUES(%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg))
         db.connection.commit()
@@ -209,6 +236,6 @@ def dProducto(id):
     flash('Producto eliminado exitosamente.')
     return redirect('/sProducto') 
 
-'''if __name__ == '__main__':
+if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
-    techcafeApp.run(port=3300)'''
+    techcafeApp.run(port=3300)
