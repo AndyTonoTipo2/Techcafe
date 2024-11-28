@@ -59,14 +59,14 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Techcafe</a>
+    <a class="navbar-brand" href="/user">Techcafe</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Inicio</a>
+          <a class="nav-link active" href="/user">Productos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link">{{ current_user.nombre }}</a>
@@ -91,7 +91,7 @@
         <img src="/static/img/{{ p[6] }}" class="card-img-top" alt="Imagen del producto">
         <div class="card-body">
           <h5 class="card-title">{{ p[1] }}</h5>
-          <p class="card-text">{{ p[2] }}</p>
+          <p class="card-text">{{ p[2] }}</p> 
           <p class="card-text"><strong>Precio:</strong> ${{ p[3] }}</p>
           <p class="card-text"><strong>Categoría:</strong> {{ p[4] }}</p>
           <p class="card-text"><strong>Existencias:</strong> {{ p[5] }}</p>
