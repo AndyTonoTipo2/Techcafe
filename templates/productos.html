@@ -5,6 +5,7 @@
 {% block contenido %}
 
 <style>
+  /* Navbar */
   .navbar {
     background-color: rgb(201, 175, 129) !important;
   }
@@ -23,29 +24,64 @@
     color: #fff;
   }
 
+  /* Divider */
+  .b-example-divider {
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(to right, #6f4e37, #cfa878, #6f4e37);
+    border: none;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+  }
+
+  /* Body */
   body {
     background-color: #cfc09c;
     color: #4a2c1e;
   }
 
+  /* Product Cards */
   .card {
     display: flex;
     flex-direction: column;
     height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
 
   .card img {
     object-fit: cover;
     height: 200px;
     width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 
   .card-body {
     flex-grow: 1;
+    padding: 15px;
+    background-color: #f5f5dc;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 
-  .card-title, .card-text {
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
     margin-bottom: 10px;
+  }
+
+  .card-text {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #4a2c1e;
   }
 
   .row {
@@ -55,23 +91,59 @@
   .col {
     padding: 8px;
   }
+
+  /* Button Styling */
+  .btn-primary {
+    background-color: #6f4e37;
+    border-color: #6f4e37;
+    border-radius: 5px;
+  }
+
+  .btn-primary:hover {
+    background-color: #8b5e3c;
+    border-color: #8b5e3c;
+  }
+
+  .btn-danger {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    border-radius: 5px;
+  }
+
+  .btn-danger:hover {
+    background-color: #c9302c;
+    border-color: #c12e2a;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #6f4e37;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  /* Eliminar la transición de la modal */
+  .modal {
+    transition: none !important;
+  }
+
+  /* Eliminar animación de apertura de la modal */
+  .modal-dialog {
+    transform: none !important;
+  }
 </style>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="admin">Techcafe</a>
+    <a class="navbar-brand" href="/sUsuario">Usuario</a>
+    <a class="navbar-brand" href="/sProducto">Productos</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Opciones</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
-            <li><a class="dropdown-item" href="/sProducto">Productos</a></li>
-          </ul>
-        </li>
         <li class="nav-item">
           <a class="nav-link">{{ current_user.nombre }}</a>
         </li>
@@ -85,7 +157,7 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container my-5">
   {% with mensajes = get_flashed_messages() %}
   {% if mensajes %}
   {% for m in mensajes %}
@@ -105,7 +177,7 @@
   </button>
 
   <!-- Modal Insert -->
-  <div class="modal fade" id="insert" tabindex="-1" aria-labelledby="insertLabel" aria-hidden="true">
+  <div class="modal" id="insert" tabindex="-1" aria-labelledby="insertLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -162,78 +234,100 @@
           <h5 class="card-title">{{ p[1] }}</h5>
           <p class="card-text">{{ p[2] }}</p>
           <p class="card-text"><strong>Precio:</strong> ${{ p[3] }}</p>
-          <p class="card-text"><strong>Categoría:</strong> {{ p[4] }}</p>
           <p class="card-text"><strong>Existencias:</strong> {{ p[5] }}</p>
-
-          <!-- Button Update -->
-          <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#update{{ p[0] }}">
-            <i class="fa-solid fa-edit"></i> Editar
+        </div>
+        <div class="card-footer text-center">
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#update{{ p[0] }}">
+            <i class="fa-solid fa-pencil"></i> Editar
           </button>
+          <!-- Botón para eliminar -->
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{ p[0] }}">
+            <i class="fa-solid fa-trash"></i> Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
 
-          <!-- Modal Update -->
-          <div class="modal fade" id="update{{ p[0] }}" tabindex="-1" aria-labelledby="updateLabel{{ p[0] }}" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="updateLabel{{ p[0] }}">Editar Producto</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/uProducto/{{ p[0] }}" method="post" enctype="multipart/form-data">
-                  <div class="modal-body">
-                    <div class="mb-3">
-                      <label for="nombre{{ p[0] }}" class="form-label">Nombre del Producto</label>
-                      <input type="text" name="nombre" class="form-control" id="nombre{{ p[0] }}" value="{{ p[1] }}" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="descripcion{{ p[0] }}" class="form-label">Descripción</label>
-                      <input type="text" name="descripcion" class="form-control" id="descripcion{{ p[0] }}" value="{{ p[2] }}" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="precio{{ p[0] }}" class="form-label">Precio</label>
-                      <input type="number" name="precio" class="form-control" id="precio{{ p[0] }}" value="{{ p[3] }}" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="categorias{{ p[0] }}" class="form-label">Categoría</label>
-                      <select name="categorias" class="form-select" id="categorias{{ p[0] }}" required>
-                        <option value="BC" {% if p[4] == "BC" %}selected{% endif %}>Bebida Caliente</option>
-                        <option value="BF" {% if p[4] == "BF" %}selected{% endif %}>Bebida Fría</option>
-                        <option value="CO" {% if p[4] == "CO" %}selected{% endif %}>Comida</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="existencias{{ p[0] }}" class="form-label">Existencias</label>
-                      <input type="number" name="existencias" class="form-control" id="existencias{{ p[0] }}" value="{{ p[5] }}" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="imagen{{ p[0] }}" class="form-label">Imagen</label>
-                      <input type="file" name="imagen" class="form-control" id="imagen{{ p[0] }}" accept="image/*">
-                      {% if p[6] %}
-                        <div class="mt-2">
-                          <img src="/static/img/{{ p[6] }}" class="img-fluid" alt="Imagen actual del producto">
-                        </div>
-                      {% endif %}
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                  </div>
-                </form>
+    <!-- Modal Update -->
+    <div class="modal" id="update{{ p[0] }}" tabindex="-1" aria-labelledby="updateLabel{{ p[0] }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateLabel{{ p[0] }}">Editar Producto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="/uProducto/{{ p[0] }}" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre del Producto</label>
+                <input type="text" name="nombre" class="form-control" value="{{ p[1] }}" id="nombre" required>
+              </div>
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <input type="text" name="descripcion" class="form-control" value="{{ p[2] }}" id="descripcion" required>
+              </div>
+              <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" name="precio" class="form-control" value="{{ p[3] }}" id="precio" required>
+              </div>
+              <div class="mb-3">
+                <label for="categorias" class="form-label">Categoría</label>
+                <select name="categorias" class="form-select" id="categorias" required>
+                  <option value="{{ p[4] }}" selected>{{ p[4] }}</option>
+                  <option value="BC">Bebida Caliente</option>
+                  <option value="BF">Bebida Fría</option>
+                  <option value="CO">Comida</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="existencias" class="form-label">Existencias</label>
+                <input type="number" name="existencias" class="form-control" value="{{ p[5] }}" id="existencias" required>
+              </div>
+              <div class="mb-3">
+                <label for="imagen" class="form-label">Imagen</label>
+                <input type="file" name="imagen" class="form-control" accept="image/*">
               </div>
             </div>
-          </div>
-
-          <!-- Button Delete -->
-          <form action="/dProducto/{{ p[0] }}" method="post" style="display:inline;">
-            <button type="submit" class="btn btn-danger">
-              <i class="fa-solid fa-trash"></i> Eliminar
-            </button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
           </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Delete -->
+    <div class="modal" id="delete{{ p[0] }}" tabindex="-1" aria-labelledby="deleteLabel{{ p[0] }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteLabel{{ p[0] }}">Eliminar Producto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>¿Está seguro de que desea eliminar el producto "{{ p[1] }}"?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <form action="/dProducto/{{ p[0] }}" method="post">
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
+
+<!-- Footer -->
+<footer>
+  <p>© 2024 Techcafe</p>
+</footer>
+
+<!-- Scripts Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 {% endblock %}
