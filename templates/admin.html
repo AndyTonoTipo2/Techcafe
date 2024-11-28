@@ -1,92 +1,234 @@
 {% extends 'layout.html' %}
-{% block titulo %} Administrador  {% endblock %}
+{% block titulo %} Administrador {% endblock %}
 {% block contenido %} 
 
 <style>
-    .navbar {
-      background-color: rgb(201, 175, 129) !important
-    }
-  
-    .navbar-brand {
-      color: #050500;
-    }
-  
-    .navbar-nav .nav-link {
-      color: #050500;
-    }
-  
-    .navbar-nav .nav-link.active {
-      color: #050500;
-    }
-  
-    .dropdown-menu {
-      background-color: #6f4e37;
-    }
-  
-    .dropdown-item {
-      color: #f5f5dc;
-    }
-  
-    .dropdown-item:hover {
-      background-color: #8b5e3c;
-      color: #fff;
-    }
-  
-    body {
-      background-color: #cfc09c;
-      color: #4a2c1e;
-    }
-  
-    .carousel-item img {
-      border-radius: 0.5rem;
-    }
-  
-    .b-example-divider {
-          width: 100%;
-          height: 6rem;
-          background-color: rgba(0, 0, 0, .1);
-          border: solid rgba(0, 0, 0, .15);
-          border-width: 1px 0;
-          box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-        }
-  
-  </style>
-  
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <i class="fa-solid fa-star fa-bounce" style="color: #8f4000;"></i>
-        <a class="navbar-brand" href="/admin">Techcafe</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
-                <li><a class="dropdown-item" href="/sProducto">Productos</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">{{current_user.nombre}}</a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link" href="/signout" ><i class="fa-solid fa-arrow-right-from-bracket fa-2xs" style="color: #000000;"></i></a>
-            </li>
-  
+  /* Navbar */
+  .navbar {
+    background-color: #6f4e37;
+  }
+
+  .navbar-brand {
+    color: #f5f5dc;
+  }
+
+  .navbar-nav .nav-link {
+    color: #f5f5dc;
+  }
+
+  .navbar-nav .nav-link.active {
+    color: #f5f5dc;
+  }
+
+  .dropdown-menu {
+    background-color: #6f4e37;
+  }
+
+  .dropdown-item {
+    color: #f5f5dc;
+  }
+
+  .dropdown-item:hover {
+    background-color: #8b5e3c;
+    color: #fff;
+  }
+
+  /* Body */
+  body {
+    background-color: #cfc09c;
+    color: #4a2c1e;
+  }
+
+  .carousel-item img {
+    border-radius: 0.5rem;
+  }
+
+  .b-example-divider {
+    width: 100%;
+    height: 6rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  }
+
+  /* Form Styles */
+  .form-control {
+    border: 1px solid #6f4e37;
+    border-radius: 5px;
+  }
+
+  .form-control:focus {
+    border-color: #8b5e3c;
+    box-shadow: 0 0 5px rgba(139, 94, 60, 0.5);
+  }
+
+  .btn-primary {
+    background-color: #6f4e37;
+    border-color: #6f4e37;
+  }
+
+  .btn-primary:hover {
+    background-color: #8b5e3c;
+    border-color: #8b5e3c;
+  }
+
+  /* Section Titles */
+  h2, h4 {
+    color: #4a2c1e;
+  }
+
+  /* Admin Dashboard */
+  .admin-section {
+    background-color: #f5f5dc;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+  }
+
+  .admin-section h4 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  /* Chart Container */
+  .chart-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .chart-box {
+    width: 48%;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .chart-box h5 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #6f4e37;
+  }
+
+  .chart-box canvas {
+    width: 100%;
+    height: 250px;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <i class="fa-solid fa-star fa-bounce" style="color: #FFD43B;"></i>
+    <a class="navbar-brand" href="admin">Techcafe</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Gestión
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
+            <li><a class="dropdown-item" href="/sProducto">Productos</a></li>
+            <li><hr class="dropdown-divider"></li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-  </nav>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">{{current_user.nombre}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signout">
+            <i class="fa-solid fa-arrow-right-from-bracket fa-2xs" style="color: #000000;"></i>
+          </a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h2 class="text-center">Panel de Administración</h2>
+  <h4 class="text-center mb-4">Bienvenido, {{current_user.nombre}}</h4>
+
+  <div class="admin-section">
+    <h4>Visión General</h4>
+    <p>En esta sección, podrás gestionar usuarios, productos y ver estadísticas relacionadas con el desempeño de la tienda.</p>
+  </div>
+
+  
+  <div class="chart-container">
+   
+    <div class="chart-box">
+      <h5>Total Productos</h5>
+      <canvas id="productChart"></canvas>
+    </div>
+
+    
+    <div class="chart-box">
+      <h5>Visitas Mensuales</h5>
+      <canvas id="salesChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+ 
+  var ctx = document.getElementById('productChart').getContext('2d');
+  var productChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Cafe Frio', 'Cafe Caliente', 'Postres', 'Paninis', 'Otros'],
+      datasets: [{
+        label: 'Total Productos',
+        data: [20, 35, 15, 25, 10],
+        backgroundColor: '#6f4e37',
+        borderColor: '#4a2c1e',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+  var ctx2 = document.getElementById('salesChart').getContext('2d');
+  var salesChart = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+      datasets: [{
+        label: 'Visitas Mensuales',
+        data: [1000, 1500, 1200, 1800, 2500, 2200],
+        fill: false,
+        borderColor: '#8b5e3c',
+        tension: 0.1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
 
 {% endblock %}

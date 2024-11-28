@@ -1,25 +1,26 @@
 {% extends 'layout.html' %}
 
-{% block titulo %} Tecnology in your coffe time {% endblock %}
+{% block titulo %}Tecnology in your coffee time{% endblock %}
 
 {% block contenido %}
 
 <style>
   /* Navbar */
   .navbar {
-    background-color: rgb(201, 175, 129) !important;
+    background-color: #6f4e37 !important;
   }
 
   .navbar-brand {
-    color: #050500;
+    color: #ffffff;
+    font-weight: bold;
   }
 
   .navbar-nav .nav-link {
-    color: #050500;
+    color: #ffffff;
   }
 
   .navbar-nav .nav-link.active {
-    color: #050500;
+    color: #ffd700;
   }
 
   .dropdown-menu {
@@ -37,82 +38,76 @@
 
   /* Body */
   body {
-    background-color: #cfc09c;
+    background-color: #f7f3eb;
     color: #4a2c1e;
-    font-size: 1.1rem;  /* Aumenta el tamaño de fuente en general */
-  }
-
-  /* Carousel */
-  .carousel-item img {
-    border-radius: 0.5rem;
-    object-fit: cover;  /* Ensures the image scales correctly */
-    height: 600px; /* Ajustar la altura de las imágenes del carrusel en pantallas grandes */
+    font-size: 1.1rem;
+    font-family: 'Roboto', sans-serif;
   }
 
   /* Divider */
   .b-example-divider {
     width: 100%;
-    height: 6rem;
-    background-color: rgba(0, 0, 0, .1);
-    border: solid rgba(0, 0, 0, .15);
-    border-width: 1px 0;
-    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    height: 6px;
+    background: linear-gradient(to right, #6f4e37, #cfa878, #6f4e37);
+    border: none;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
   }
 
-  /* Navbar responsiveness */
-  .navbar-collapse {
-    justify-content: flex-end;  /* Align menu to the right on mobile */
+  /* Carousel */
+  .carousel-item img {
+    border-radius: 0.5rem;
+    object-fit: cover;
+    height: 600px;
   }
 
-  /* Ensure carousel images resize on smaller screens */
-  .carousel-inner {
-    max-width: 100%;
-    overflow: hidden;
+  /* Cards */
+  .card-title {
+    font-weight: bold;
+    color: #6f4e37;
   }
 
-  /* Ensure search bar looks good in all screen sizes */
-  .form-control {
-    width: auto;
-    max-width: 250px;  /* Limit max size */
+  .card-text {
+    color: #4a2c1e;
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .navbar-nav {
-      text-align: center;  /* Center nav items on smaller screens */
-    }
-
-    .carousel-item img {
-      height: 400px; /* Reduce height of carousel images on mobile */
-    }
-
-    .form-control {
-      width: 100%;  /* Full width on small screens */
-    }
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
   }
 
-  @media (min-width: 768px) {
-    .navbar-collapse {
-      justify-content: flex-start;  /* Align menu to the left on large screens */
-    }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
 
-    .carousel-item img {
-      height: 600px;  /* Ajuste de la altura del carrusel en pantallas grandes */
-    }
+  .btn-primary {
+    background-color: #6f4e37;
+    border-color: #6f4e37;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+  }
 
-    .form-control {
-      width: 250px;  /* Máximo tamaño de la barra de búsqueda en pantallas grandes */
-    }
+  .btn-primary:hover {
+    background-color: #8b5e3c;
+    transform: scale(1.05);
+  }
 
-    body {
-      font-size: 1.2rem;  /* Aumentar el tamaño de la fuente en pantallas grandes */
-    }
+  /* Footer */
+  footer {
+    background-color: #6f4e37;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 </style>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <i class="fa-solid fa-star fa-bounce" style="color: #8f4000;"></i>
+    <i class="fa-solid fa-star fa-bounce" style="color: #ffd43b;"></i>
     <a class="navbar-brand" href="/">Techcafe</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -120,24 +115,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/signup">Sign-Up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/signin"><i class="fa-solid fa-user fa-fade" style="color: #7e4c02;"></i></a>
+          <a class="nav-link" href="/signin"><i class="fa-solid fa-user fa-fade" style="color: #ffd43b;"></i></a>
         </li>
       </ul>
       <form class="d-flex" role="search">
@@ -148,7 +129,7 @@
   </div>
 </nav>
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleSlidesOnly" class="carousel slide mt-4" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="/static/img/011.png" class="d-block w-100" alt="...">
@@ -161,5 +142,54 @@
     </div>
   </div>
 </div>
+
+<!-- Cards Section -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Featured Products</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100 d-flex flex-column">
+        <img src="/static/img/img4.png" class="card-img-top" alt="Product 1">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Product 1</h5>
+          <p class="card-text">High-quality coffee maker for your perfect brew.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0 mt-auto">
+          <a href="#" class="btn btn-primary w-100">Learn More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 d-flex flex-column">
+        <img src="/static/img/img5.png" class="card-img-top" alt="Product 2">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Product 2</h5>
+          <p class="card-text">Premium coffee beans sourced ethically.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0 mt-auto">
+          <a href="#" class="btn btn-primary w-100">Learn More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 d-flex flex-column">
+        <img src="/static/img/img14.png" class="card-img-top" alt="Product 3">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Product 3</h5>
+          <p class="card-text">Stylish and ergonomic coffee mugs.</p>
+        </div>
+        <div class="card-footer bg-transparent border-0 mt-auto">
+          <a href="#" class="btn btn-primary w-100">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="b-example-divider"></div>
+
+<footer>
+  <p>&copy; 2024 Techcafe. All rights reserved.</p>
+</footer>
 
 {% endblock %}

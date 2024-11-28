@@ -3,131 +3,151 @@
 {% block contenido %}
 
 <style>
+  /* General Styles */
+  body {
+    background-color: #f7f3eb;
+    color: #4a2c1e;
+    font-family: 'Roboto', sans-serif;
+  }
+
   .navbar {
     background-color: #6f4e37;
   }
 
   .navbar-brand {
-    color: #050500;
+    color: #ffffff;
+    font-weight: bold;
   }
 
   .navbar-nav .nav-link {
-    color: #050500;
+    color: #ffffff;
   }
 
   .navbar-nav .nav-link.active {
-    color: #050500;
+    color: #ffd700;
   }
 
-  .dropdown-menu {
+  /* Hero Section */
+  .container {
+    margin-top: 2rem;
+  }
+
+  .text-lg-start h1 {
+    color: #5a4631;
+    font-weight: bold;
+  }
+
+  .text-lg-start p {
+    color: #7b6a57;
+  }
+
+  /* Form Styles */
+  .form-container {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 2rem;
+  }
+
+  .form-floating input {
+    border-radius: 5px;
+  }
+
+  .form-floating label {
+    color: #6f4e37;
+  }
+
+  .btn-primary {
     background-color: #6f4e37;
+    border-color: #6f4e37;
+    transition: transform 0.2s ease, background-color 0.3s ease;
   }
 
-  .dropdown-item {
-    color: #f5f5dc;
-  }
-
-  .dropdown-item:hover {
+  .btn-primary:hover {
     background-color: #8b5e3c;
-    color: #fff;
+    transform: scale(1.05);
   }
 
-  body {
-    background-color: #cfc09c;
-    color: #4a2c1e;
+  .btn-close {
+    color: #6f4e37;
   }
 
-  .carousel-item img {
-    border-radius: 0.5rem;
+  /* Image Styles */
+  .decorative-img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 992px) {
+    .decorative-img {
+      display: none;
+    }
   }
 </style>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <i class="fa-solid fa-star fa-bounce" style="color: #FFD43B;"></i>
-      <a class="navbar-brand" href="/">Techcafe</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/signup" >Sign-Up</a>
-          </li>
-  
-          <li class="nav-item">
-            <a class="nav-link" href="/signin" ><i class="fa-solid fa-user fa-fade" style="color: #74C0FC;"></i></a>
-          </li>
-  
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-    <div class="row align-items-center g-lg-5 py-5">
-      <div class="col-lg-7 text-center text-lg-start">
-        <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Iniciar Sesion</h1>
-        <p class="col-lg-10 fs-4">Inicia sesion para ingresar en nuestro sitio para comprar productos y mucho mas!</p>
-      </div>
-      <div class="col-md-10 mx-auto col-lg-5">
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-        <form action="/signin" method="post" class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
-          {% with mensajes = get_flashed_messages() %}
-          {% if mensajes %}
-          {% for m in mensajes %}
-          <div class="alert alert-danger alert-dismissible fade show" role="danger">
-            {{m}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          {% endfor %}
-          {% endif %}
-          {% endwith %}
-          
-          <div class="form-floating mb-3">
-            <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="password" name="clave" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-          </div>
-          <div class="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me"> Remember me
-            </label>
-          </div>
-          <button type="submit" class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-          <hr class="my-4">
-          <small class="text-body-secondary">Recuerda que estas de acuerdo en los terminos y condiciones de nuestra empresa</small>
-        </form>
-      </div>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <i class="fa-solid fa-star fa-bounce" style="color: #FFD43B;"></i>
+    <a class="navbar-brand" href="/">Techcafe</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Sign-Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signin"><i class="fa-solid fa-user fa-fade" style="color: #74C0FC;"></i></a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
   </div>
+</nav>
 
-  {% endblock %}
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="col-lg-6 text-center text-lg-start">
+      <h1 class="display-4 fw-bold lh-1 mb-3">Iniciar Sesión</h1>
+      <p class="col-lg-10 fs-4">Accede a tu cuenta para explorar los mejores productos y experiencias.</p>
+      <img src="/static/img/img14.png" class="decorative-img" alt="Imagen decorativa">
+    </div>
+    <div class="col-md-10 mx-auto col-lg-6">
+      <form action="/signin" method="post" class="form-container">
+        {% with mensajes = get_flashed_messages() %}
+        {% if mensajes %}
+        {% for m in mensajes %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{m}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="form-floating mb-3">
+          <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">Correo electrónico</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" name="clave" class="form-control" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Contraseña</label>
+        </div>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Recuérdame
+          </label>
+        </div>
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Iniciar sesión</button>
+        <hr class="my-4">
+        <small class="text-body-secondary">Al iniciar sesión, aceptas nuestros términos y condiciones.</small>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

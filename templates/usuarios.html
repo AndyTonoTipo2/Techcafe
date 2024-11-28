@@ -3,259 +3,292 @@
 {% block contenido %} 
 
 <style>
+    /* Navbar */
     .navbar {
-      background-color: rgb(201, 175, 129) !important
+        background-color: rgb(201, 175, 129) !important;
     }
-  
+
     .navbar-brand {
-      color: #050500;
+        color: #050500;
     }
-  
+
     .navbar-nav .nav-link {
-      color: #050500;
+        color: #050500;
     }
-  
+
     .navbar-nav .nav-link.active {
-      color: #050500;
+        color: #050500;
     }
-  
+
     .dropdown-menu {
-      background-color: #6f4e37;
+        background-color: #6f4e37;
     }
-  
+
     .dropdown-item {
-      color: #f5f5dc;
+        color: #f5f5dc;
     }
-  
+
     .dropdown-item:hover {
-      background-color: #8b5e3c;
-      color: #fff;
+        background-color: #8b5e3c;
+        color: #fff;
     }
-  
+
     body {
-      background-color: #cfc09c;
-      color: #4a2c1e;
+        background-color: #cfc09c;
+        color: #4a2c1e;
     }
-  
+
     .carousel-item img {
-      border-radius: 0.5rem;
+        border-radius: 0.5rem;
     }
-  
+
     .b-example-divider {
-          width: 100%;
-          height: 6rem;
-          background-color: rgba(0, 0, 0, .1);
-          border: solid rgba(0, 0, 0, .15);
-          border-width: 1px 0;
-          box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-        }
-  
-  </style>
-  
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
+        width: 100%;
+        height: 6rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    /* Table */
+    table {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    table th {
+        background-color: #6f4e37;
+        color: #fff;
+        text-align: center;
+    }
+
+    table td {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    table td button {
+        background-color: #6f4e37;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+    }
+
+    table td button:hover {
+        background-color: #8b5e3c;
+    }
+
+    /* Modal */
+    .modal-content {
+        border-radius: 10px;
+    }
+
+    .modal-header {
+        background-color: #6f4e37;
+        color: #fff;
+    }
+
+    .modal-body {
+        background-color: #f5f5dc;
+    }
+
+    .modal-footer button {
+        border-radius: 5px;
+    }
+
+    .modal-footer .btn-secondary {
+        background-color: #8b5e3c;
+        color: #fff;
+    }
+
+    .modal-footer .btn-secondary:hover {
+        background-color: #6f4e37;
+    }
+
+    .modal-footer .btn-danger {
+        background-color: #ff4d4d;
+        color: #fff;
+    }
+
+    .modal-footer .btn-danger:hover {
+        background-color: #cc0000;
+    }
+
+    /* Form */
+    .form-control {
+        border: 1px solid #6f4e37;
+        border-radius: 5px;
+    }
+
+    .form-control:focus {
+        border-color: #8b5e3c;
+        box-shadow: 0 0 5px rgba(139, 94, 60, 0.5);
+    }
+
+    .form-select {
+        border: 1px solid #6f4e37;
+        border-radius: 5px;
+    }
+
+    .form-select:focus {
+        border-color: #8b5e3c;
+        box-shadow: 0 0 5px rgba(139, 94, 60, 0.5);
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
         <i class="fa-solid fa-star fa-bounce" style="color: #8f4000;"></i>
-        <a class="navbar-brand" href="/">Techcafe</a>
+        <a class="navbar-brand" href="admin">Techcafe</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
-                <li><a class="dropdown-item" href="/sProducto">Productos</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">{{current_user.nombre}}</a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link" href="/signout" ><i class="fa-solid fa-arrow-right-from-bracket fa-2xs" style="color: #000000;"></i></a>
-            </li>
-  
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
+                        <li><a class="dropdown-item" href="/sProducto">Productos</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">{{current_user.nombre}}</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/signout" ><i class="fa-solid fa-arrow-right-from-bracket fa-2xs" style="color: #000000;"></i></a>
+                </li>
+
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
-</div>
+    </div>
 </nav>
 
 <div class="container">
-  {% with mensajes = get_flashed_messages() %}
-  {% if mensajes %}
-  {% for m in mensajes %}
-  <div class="alert alert-success alert-dismissible fade show" role="success">
-    {{m}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
+    {% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+    {% for m in mensajes %}
+    <div class="alert alert-success alert-dismissible fade show" role="success">
+        {{m}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-        <table class="table">
+    <table class="table">
         <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Fecha de Registro</th>
-        <th scope="col">Perfil</th>
-        <th scope="col" colspan="2">
-          <!--Button Insert-->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
-            <i class="fa-solid fa-user-plus" style="color: #fff;"></i>
-          </button>
-        </th>
-    </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Fecha de Registro</th>
+                <th scope="col">Perfil</th>
+                <th scope="col" colspan="2">
+                    <!--Button Insert-->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
+                        <i class="fa-solid fa-user-plus" style="color: #fff;"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
     
-    
-    <!-- Modal Insert -->
-    <div class="modal fade" id="insert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <form action="/iUsuario"method="post">
-    <div class="modal-body">
-      <div class="container">
-      <div class="col-md-6">
-      <label for="inputName" class="form-label">Name</label>
-        <input type="text" name="nombre" class="form-control" id="inputName">
-        </div>
-        
-        <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Email</label>
-            <input type="email" name="correo" class="form-control" id="inputEmail4">
-            </div>
-            <div class="col-md-6">
-            <label for="inputPassword4" class="form-label">Password</label>
-            <input type="password" name="clave" class="form-control" id="inputPassword4">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputPassword4" class="form-label">Profile</label>
-                  <select name="perfil" class="form-select" aria-label="Default select example">
-                    <option selected>Select a Profile</option>
-                    <option value="A">Admin</option>
-                    <option value="U">User</option>
-                  </select>
-                </div>
-    </div>
-    </div>
-    <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-    <button type="submit" class="btn btn-primary">Crear Usuario</button>
-      </div>
-      </form>
-        </div>
-        </div>
-          </div>
-            </thead>
-    
-    <tbody>
-        {% for u in usuarios %}
-      <tr>
-        <th scope="row">{{u.0}}</th>
-        <td>{{u.1}}</td>
-        <td>{{u.2}}</td>
-        <td>{{u.4}}</td>
-        <td>{{u.5}}</td>
-        <td>
+        <tbody>
+            {% for u in usuarios %}
+            <tr>
+                <th scope="row">{{u.0}}</th>
+                <td>{{u.1}}</td>
+                <td>{{u.2}}</td>
+                <td>{{u.4}}</td>
+                <td>{{u.5}}</td>
+                <td>
+                    <!--Button Update-->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update{{u.0}}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                </td>
+                <td>
+                    <!-- Button delete -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{u.0}}">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                </td>
+            </tr>
 
-<!--Button Update-->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update{{u.0}}">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-        </td>
-        <td>
-          <!-- Button delete -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{u.0}}">
-  <i class="fa-solid fa-minus"></i>
-</button>
-        </td>
-      </tr>
-      
-<!-- Modal Update -->
-    <div class="modal fade" id="update{{u.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-      <div class="modal-content">
-      <div class="modal-header">
-      <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuario</h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="/uUsuario/{{u.0}}"method="post">
-      <div class="modal-body">
-        <div class="container">
-        <div class="col-md-6">
-        <label for="inputName" class="form-label">Name</label>
-          <input type="text" name="nombre" value="{{u.1}}" class="form-control" id="inputName">
-          </div>
-          
-          <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Email</label>
-              <input type="email" name="correo" value="{{u.2}}" class="form-control" id="inputEmail4">
-              </div>
-              <div class="col-md-6">
-              <label for="inputPassword4" class="form-label">Password</label>
-              <input type="password" name="clave" class="form-control" id="inputPassword4">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Profile</label>
-                    <select name="perfil" class="form-select" aria-label="Default select example">
-                      <option >Select a Profile</option>
-                      <option {% if u.5 == 'A' %} selected {% endif %}value="A">Admin</option>
-                      <option {% if u.5 == 'U' %} selected {% endif %}value="U">User</option>
-                    </select>
-                  </div>
-      </div>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-      <button type="submit" class="btn btn-primary">Confirmar</button>
-        </div>
-        </form>
-          </div>
-          </div>
+            <!-- Modal Update -->
+            <div class="modal fade" id="update{{u.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuario</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/uUsuario/{{u.0}}" method="post">
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="col-md-6">
+                                        <label for="inputName" class="form-label">Name</label>
+                                        <input type="text" name="nombre" value="{{u.1}}" class="form-control" id="inputName">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputEmail4" class="form-label">Email</label>
+                                        <input type="email" name="correo" value="{{u.2}}" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputPassword4" class="form-label">Password</label>
+                                        <input type="password" name="clave" class="form-control" id="inputPassword4">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputPassword4" class="form-label">Profile</label>
+                                        <select name="perfil" class="form-select" aria-label="Default select example">
+                                            <option {% if u.5 == 'A' %} selected {% endif %} value="A">Admin</option>
+                                            <option {% if u.5 == 'U' %} selected {% endif %} value="U">User</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
-
-<!-- Modal Delete -->
-<div class="modal fade" id="delete{{u.0}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete User</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="/dUsuario/{{u.0}}">
-      <div class="modal-body">
-        <p><i class="fa-solid fa-triangle-exclamation fa-xl" style="color: #ff0000;"></i>Are you sure {{u.1}}?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-danger">Delete</button>
-      </div>
-    </form>
-    </div>
-  </div>
-</div>
-
-{% endfor %}
-    </tbody>
-  </table>
+            <!-- Modal Delete -->
+            <div class="modal fade" id="delete{{u.0}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete User</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/dUsuario/{{u.0}}">
+                            <div class="modal-body">
+                                <p><i class="fa-solid fa-triangle-exclamation fa-xl" style="color: #ff0000;"></i> Are you sure you want to delete {{u.1}}?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}
