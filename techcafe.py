@@ -27,6 +27,17 @@ def cargarUsuario(id):
 def home():
     return render_template('home.html')
 
+
+@techcafeApp.route('/admin')
+def admin():
+    return render_template('admin.html')
+
+@techcafeApp.route('/user')
+def user():
+    productos = obtener_productos()
+    return render_template('user.html', productos=productos)
+
+
 @techcafeApp.route('/signup',methods=['GET','POST'])
 def signup():
     if request.method == 'POST':
@@ -200,6 +211,6 @@ def dProducto(id):
     flash('Producto eliminado exitosamente.')
     return redirect('/sProducto')
 
-'''if __name__ == '__main__':
+if __name__ == '__main__':
     techcafeApp.config.from_object(config['development'])
-    techcafeApp.run(port=3300)'''
+    techcafeApp.run(port=3300)

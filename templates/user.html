@@ -1,95 +1,105 @@
 {% extends 'layout.html' %}
-{% block titulo %} Tecnology in your coffe time {% endblock %}
-{% block contenido %} 
+
+{% block titulo %}Bienvenido a Techcafe{% endblock %}
+
+{% block contenido %}
 
 <style>
-    .navbar {
-      background-color: rgb(201, 175, 129) !important
-    }
-  
-    .navbar-brand {
-      color: #050500;
-    }
-  
-    .navbar-nav .nav-link {
-      color: #050500;
-    }
-  
-    .navbar-nav .nav-link.active {
-      color: #050500;
-    }
-  
-    .dropdown-menu {
-      background-color: #6f4e37;
-    }
-  
-    .dropdown-item {
-      color: #f5f5dc;
-    }
-  
-    .dropdown-item:hover {
-      background-color: #8b5e3c;
-      color: #fff;
-    }
-  
-    body {
-      background-color: #cfc09c;
-      color: #4a2c1e;
-    }
-  
-    .carousel-item img {
-      border-radius: 0.5rem;
-    }
-  
-    .b-example-divider {
-          width: 100%;
-          height: 6rem;
-          background-color: rgba(0, 0, 0, .1);
-          border: solid rgba(0, 0, 0, .15);
-          border-width: 1px 0;
-          box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-        }
-  
-  </style>
-  
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <i class="fa-solid fa-star fa-bounce" style="color: #8f4000;"></i>
-        <a class="navbar-brand" href="/">Techcafe</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">{{current_user.nombre}}</a>
-            </li>
-  
-            <li class="nav-item">
-              <a class="nav-link" href="/signout" ><i class="fa-solid fa-arrow-right-from-bracket fa-2xs" style="color: #000000;"></i></a>
-            </li>
-  
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-</div>
+  .navbar {
+    background-color: rgb(201, 175, 129) !important;
+  }
+
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    color: #050500;
+  }
+
+  .dropdown-menu {
+    background-color: #6f4e37;
+  }
+
+  .dropdown-item:hover {
+    background-color: #8b5e3c;
+    color: #fff;
+  }
+
+  body {
+    background-color: #cfc09c;
+    color: #4a2c1e;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .card img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+  }
+
+  .card-body {
+    flex-grow: 1;
+  }
+
+  .card-title, .card-text {
+    margin-bottom: 10px;
+  }
+
+  .row {
+    margin: 0 -8px;
+  }
+
+  .col {
+    padding: 8px;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Techcafe</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">{{ current_user.nombre }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signout">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
+
+<div class="container">
+  <h2>Productos Disponibles</h2>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for p in productos %}
+    <div class="col">
+      <div class="card h-100">
+        <img src="/static/img/{{ p[6] }}" class="card-img-top" alt="Imagen del producto">
+        <div class="card-body">
+          <h5 class="card-title">{{ p[1] }}</h5>
+          <p class="card-text">{{ p[2] }}</p>
+          <p class="card-text"><strong>Precio:</strong> ${{ p[3] }}</p>
+          <p class="card-text"><strong>Categoría:</strong> {{ p[4] }}</p>
+          <p class="card-text"><strong>Existencias:</strong> {{ p[5] }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}
